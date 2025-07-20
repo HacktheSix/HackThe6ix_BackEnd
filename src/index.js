@@ -11,8 +11,11 @@ root.render(
       domain="dev-b2t3uuljuttljp5w.us.auth0.com"
       clientId="i7krLmM0fGMfZSbvrmIblZg2YLtPo6Xb"
       authorizationParams={{
-        redirect_uri: "http://localhost:3001",
+        redirect_uri: "http://localhost:3000/dashboard",
       }}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
+      skipRedirectCallback={false}
     >
       <App />
     </Auth0Provider>

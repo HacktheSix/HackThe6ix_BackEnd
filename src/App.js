@@ -13,17 +13,12 @@ function App() {
   React.useEffect(() => {
     async function checkConnection() {
       try {
-        // Simple connection test - just check if Supabase is reachable
-        const { error } = await supabase.from('users').select('count').limit(0);
-        if (error && error.message.includes('does not exist')) {
-          setStatus('connected (setup needed)');
-          return;
-        }
+        const { data, error } = await supabase.from("users").select("count");
         if (error) throw error;
-        setStatus('connected');
+        setStatus("connected");
       } catch (error) {
-        setStatus('connection failed');
-        console.error('Connection error:', error);
+        setStatus("connection failed");
+        console.error(error);
       }
     }
     checkConnection();
@@ -32,9 +27,17 @@ function App() {
   // Redirect to frontend dashboard after successful authentication
   React.useEffect(() => {
     if (isAuthenticated && user && supabaseUser) {
-      // Wait 3 seconds to show confirmation, then redirect
+      // Pass user info to frontend via URL parameters
+      const userParams = new URLSearchParams({
+        name: user.name || '',
+        email: user.email || '',
+        picture: user.picture || '',
+        auth0_id: user.sub || '',
+        auth: 'true'
+      });
+      
       setTimeout(() => {
-        window.location.href = "http://localhost:3000/dashboard";
+        window.location.href = `http://localhost:3001/dashboard?${userParams.toString()}`;
       }, 3000);
     }
   }, [isAuthenticated, user, supabaseUser]);

@@ -6,12 +6,14 @@ const path = require("path");
 const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
-const port = process.env.PORT || 3001; // Changed from 3000 to 3001
+const port = process.env.PORT || 3002; // Changed to 3002 to avoid conflict with frontend
 
 // Enhanced error handling for Supabase connection
-const supabaseUrl =
-  process.env.REACT_APP_SUPABASE_URL || "http://localhost:54321";
-const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || "https://xoodnuckjmlmejeyyneg.supabase.co";
+const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhvb2RudWNram1sbWVqZXl5bmVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI5MTQwNTQsImV4cCI6MjA2ODQ5MDA1NH0.tu12RS2PsuKvewIEaCXI2eMyLMOYuZi8gSBe6nIPN2s";
+
+console.log("Using Supabase URL:", supabaseUrl);
+console.log("Using Supabase Key:", supabaseKey ? "***KEY_PRESENT***" : "***KEY_MISSING***");
 
 if (!supabaseKey) {
   console.error("Missing Supabase anon key");
